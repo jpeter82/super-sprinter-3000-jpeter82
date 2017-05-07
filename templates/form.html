@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>
+			Super Sprinter 3000 - {% if to_be_updated %} Edit {% else %} Add new {% endif %} Story
+		</title>
+		<meta name="description" content="My first python web project" />
+		<meta name="author" content="JPeter" />
+		<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}" />
+	</head>
+	<body>
+		<h2>User Story manager - {% if to_be_updated %} Update {% else %} Add new {% endif %} story</h2>
+		<form method="post" action="{{ url_for('index') }}">
+			<div>
+				<input type="hidden" id="modID" name="modID" value="{% if to_be_updated %}{{ to_be_updated[0] }}{% else %}-1{% endif %}" />
+			</div>
+			<div>
+				<label for="storyTitle">Story Title</label>
+				<br />
+				<input type="" id="storyTitle" name="storyTitle" placeholder="Enter a title" value="{% if to_be_updated %}{{ to_be_updated[1] }}{% endif %}" autofocus />
+			</div>
+			<br />
+			<div>
+				<label for="userStory">User Story</label>
+				<br />
+				<textarea id="userStory" name="userStory" rows="4" cols="50" placeholder="You can specify the user story here...">{% if to_be_updated %}{{ to_be_updated[2] }}{% endif %}</textarea>
+			</div>
+			<br />
+			<div>
+				<label for="criteria">Acceptance criteria</label>
+				<br />
+				<textarea id="criteria" name="criteria" rows="4" cols="50" placeholder="Add your criteria here...">{% if to_be_updated %}{{ to_be_updated[3] }}{% endif %}</textarea>
+			</div>
+			<br />
+			<div>
+				<label for="businessValue">Business Value</label>
+				<br />
+				<input type="number" id="businessValue" name="businessValue" value="{% if to_be_updated %}{{ to_be_updated[4] }}{% else %}1000{% endif %}" min="100" max="1500" step="100" width="4" />
+			</div>
+			<br />
+			<div>
+				<label for="estimation">Estimation (h)</label>
+				<br />
+				<input type="number" id="estimation" name="estimation" value="{% if to_be_updated %}{{ to_be_updated[5] }}{% else %}2.5{% endif %}" min="0.5" max="40" step="0.5" />
+			</div>
+			<br />
+			<div>
+				<label for="status">Status</label>
+				<br />
+				<select id="status" name="status">
+					{%- if to_be_updated %}
+					<option value="Planning" {% if to_be_updated[6] == "Planning" %}selected{% endif %}>Planning</option>
+					<option value="TODO" {% if to_be_updated[6] == "TODO" %}selected{% endif %}>TODO</option>
+					<option value="In Progress" {% if to_be_updated[6] == "In Progress" %}selected{% endif %}>In Progress</option>
+					<option value="Review" {% if to_be_updated[6] == "Review" %}selected{% endif %}>Review</option>
+					<option value="Done" {% if to_be_updated[6] == "Done" %}selected{% endif %}>Done</option>
+					{% else %}
+					<option value="Planning" selected>Planning</option>
+					<option value="TODO">TODO</option>
+					<option value="In Progress">In Progress</option>
+					<option value="Review">Review</option>
+					<option value="Done">Done</option>
+					{%- endif %}
+				</select>
+			</div>
+			<br />
+			<button type="submit" id="submitForm">{% if to_be_updated %} Update {% else %} Create {% endif %}</button>
+		</form>
+		<br />
+		<form method="get" action="{{ url_for('index') }}">
+			<input type="submit" id="goBack" value="Back">
+		</form>
+	</body>
+</html>
