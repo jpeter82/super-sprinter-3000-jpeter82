@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %} - {% if to_be_updated %} Edit {% else -%} Add new {% endif %} Story{% endblock %}
+
+{% block content %}
+			<div class="ui raised center aligned padded text container segment" style="margin-top:30px">
+				<div>
+					<h2>User Story manager - {% if to_be_updated %} Update {% else %} Add new {% endif %} story</h2>
+				</div>
+				<div class="ui left aligned container" style="margin-top:30px">
+					<form class="ui form" method="post" action="{{ url_for('index') }}">
+						<div>
+							<input type="hidden" id="modID" name="modID" value="{% if to_be_updated %}{{ to_be_updated[0] }}{% else %}-1{% endif %}" />
+						</div>
+						<div class="field">
+							<label for="storyTitle">Story Title</label>
+							<input type="text" id="storyTitle" name="storyTitle" placeholder="Enter a title" {% if to_be_updated %} value="{{ to_be_updated[1] }}"{% endif %} autofocus />
+						</div>
+						<div class="field">
+							<label for="userStory">User Story</label>
+							<textarea id="userStory" name="userStory" rows="4" cols="50" placeholder="You can specify the user story here...">{% if to_be_updated %}{{ to_be_updated[2] }}{% endif %}</textarea>
+						</div>
+						<div class="field">
+							<label for="criteria">Acceptance criteria</label>
+							<textarea id="criteria" name="criteria" rows="4" cols="50" placeholder="Add your criteria here...">{% if to_be_updated %}{{ to_be_updated[3] }}{% endif %}</textarea>
+						</div>
+						<div class="field">
+							<label for="businessValue">Business Value</label>
+							<input type="number" id="businessValue" name="businessValue" value="{% if to_be_updated %}{{ to_be_updated[4] }}{% else %}1000{% endif %}" min="100" max="1500" step="100" width="4" />
+						</div>
+						<div class="field">
+							<label for="estimation">Estimation (h)</label>
+							<input type="number" id="estimation" name="estimation" value="{% if to_be_updated %}{{ to_be_updated[5] }}{% else %}2.5{% endif %}" min="0.5" max="40" step="0.5" />
+						</div>
+						<div class="field">
+							<label for="status">Status</label>
+							<select id="status" name="status">
+								{%- if to_be_updated %}
+								<option value="Planning" {% if to_be_updated[6] == "Planning" %}selected{% endif %}>Planning</option>
+								<option value="TODO" {% if to_be_updated[6] == "TODO" %}selected{% endif %}>TODO</option>
+								<option value="In Progress" {% if to_be_updated[6] == "In Progress" %}selected{% endif %}>In Progress</option>
+								<option value="Review" {% if to_be_updated[6] == "Review" %}selected{% endif %}>Review</option>
+								<option value="Done" {% if to_be_updated[6] == "Done" %}selected{% endif %}>Done</option>
+								{% else %}
+								<option value="Planning" selected>Planning</option>
+								<option value="TODO">TODO</option>
+								<option value="In Progress">In Progress</option>
+								<option value="Review">Review</option>
+								<option value="Done">Done</option>
+								{%- endif %}
+							</select>
+						</div>
+						<br />
+						<button type="button" id="goBack" class="ui grey button">Back</button>
+						<button type="submit" id="submitForm" style="float:right" class="ui blue button">{% if to_be_updated %} Update {% else %} Create {% endif %}</button>
+					</form>
+					<br />
+				</div>
+			</div>
+			<script type="text/javascript">
+				document.getElementById("goBack").onclick = function () {
+					location.href = "/";
+				};
+			</script>
+{%- endblock content %}	

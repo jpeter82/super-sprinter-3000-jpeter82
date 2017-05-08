@@ -18,7 +18,7 @@
 			<div>
 				<label for="storyTitle">Story Title</label>
 				<br />
-				<input type="" id="storyTitle" name="storyTitle" placeholder="Enter a title" value="{% if to_be_updated %}{{ to_be_updated[1] }}{% endif %}" autofocus />
+				<input type="text" id="storyTitle" name="storyTitle" placeholder="Enter a title" {% if to_be_updated %}value="{{ to_be_updated[1] }}"{% endif %} autofocus />
 			</div>
 			<br />
 			<div>

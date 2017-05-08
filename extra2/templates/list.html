@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+			<div class="ui raised center aligned container segment" style="margin-top:30px">
+				<br />
+				<div class="ui left aligned container">
+					<h2 class="ui header">User Story manager</h2>
+				</div>
+				<br />
+				{% if not empty -%}
+				<div>
+					<table class="ui padded table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Story Title</th>
+								<th>User Story</th>
+								<th>Acceptance Criteria</th>
+								<th>Business Value</th>
+								<th>Estimation</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{%- for line in content %}
+							<tr>
+								{%- for data in line %}
+								<td>{{ data|safe }}</td>
+								{%- endfor %}
+								<td>
+									<div>
+										<a href="{{ url_for('update_record', story_id=line[0]) }}"><i class="big inverted black edit icon"></i></a>
+										<a href="{{ url_for('delete_record', story_id=line[0]) }}"><i class="big inverted black trash icon"></i></a>
+									</div>
+								</td>
+							</tr>
+							{%- endfor %}
+						</tbody>
+					</table>
+				</div>
+				{%- else %}
+				<div class="ui left aligned container">
+					<strong>Currently you have no records in the table.<strong>
+				</div>
+				{% endif %}
+				<br />
+				<div class="ui left aligned container">
+					<form action="{{ url_for('insert_record') }}">
+						<input type="submit" id="addUserStory" class="ui blue button" value="Add new User Story">
+					</form>
+				</div>
+			</div>
+{%- endblock content %}
